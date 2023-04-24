@@ -54,19 +54,24 @@ async function sendSessionUpdates() {
 
     for (const [index, session] of activeSessions.entries()) {
       let imageUrl = session.thumbnail;
-      if (imageUrl.startsWith('neosdb:///')) {
+      if (imageUrl && imageUrl.startsWith('neosdb:///')) {
         imageUrl = imageUrl.replace('neosdb:///', 'https://assets.neos.com/assets/').replace('.webp', '');
       }
       const cleanName = removeHtmlColorTags(session.name);
       const uptime = calculateUptime(session.sessionBeginTime);
 
-      let sessionUrls = session.sessionURLs.map(url => {
+      let sessionUrls = session.sessionURLs
+      .filter(url => url != null)
+      .map(url => {
         if (url.startsWith('lnl-nat://')) {
           return `\`${url}\``;
         } else if (url.startsWith('neos-steam://')) {
           return `\`${url}\``;
-        } 
-      }).join('\n');
+        } else {
+          return '';
+        }
+      })
+      .join('\n');
 
       const embed = new EmbedBuilder()
         .setTitle(`Session ${index + 1}: ${cleanName}`)
