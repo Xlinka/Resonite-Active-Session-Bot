@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const config = require('./config.json');
-const { DISCORD_TOKEN, CHANNEL_ID, API_URL, REFRESH_INTERVAL } = config;
+const { DISCORD_TOKEN, CHANNEL_ID, API_URL, REFRESH_INTERVAL, UserStat_API } = config;
 
 const client = new Client({
   intents: [
@@ -16,11 +16,14 @@ const client = new Client({
 const channelId = CHANNEL_ID;
 const apiUrl = API_URL;
 const refreshInterval = REFRESH_INTERVAL;
+const userstatapi = UserStat_API;
+let userStatsMessage; // Declare userStatsMessage variable here
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}`);
   console.log(`Sending session updates to channel ${channelId}`);
   setInterval(sendSessionUpdates, refreshInterval);
+  setInterval(sendUserStatistics, refreshInterval);
 });
 
 function removeHtmlColorTags(text) {
@@ -38,6 +41,48 @@ function calculateUptime(sessionBeginTime) {
 
   return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
+
+async function sendUserStatistics() {
+  try {
+    const response = await fetch(userstatapi);
+    if (!response.ok) {
+      throw new Error(`Received status ${response.status} ${response.statusText}`);
+    }
+
+    const stats = await response.json();
+    console.log(`Stats:`, stats);
+
+    const channel = await client.channels.fetch(channelId);
+
+    const embed = new EmbedBuilder()
+      .setColor('#0099ff')
+      .setTitle('User Statistics')
+      .addFields(
+        { name: 'Registered Users', value: stats.registeredUserCount.toString(), inline: true  },
+        { name: 'VR Users', value: stats.vrUserCount.toString(), inline: true  },
+        { name: 'Screen Users', value: stats.screenUserCount.toString(), inline: true  },
+        { name: 'Headless Users', value: stats.headlessUserCount.toString(), inline: true  },
+        { name: 'Mobile Users', value: stats.mobileUserCount.toString(), inline: true  },
+        { name: 'Instances', value: stats.instanceCount.toString(), inline: true  },
+        { name: 'Public Sessions', value: `${stats.activePublicSessionCount.toString()} / ${stats.publicSessionCount.toString()}`, inline: true  },
+      );
+
+    if (userStatsMessage) {
+      // Update existing user stats message
+      userStatsMessage = await userStatsMessage.edit({ embeds: [embed] });
+    } else {
+      // Send new user stats message
+      userStatsMessage = await channel.send({ embeds: [embed] });
+    }
+
+  } catch (error) {
+    console.error(`Error while fetching or sending user statistics: ${error.message}`);
+    console.error(error.stack);
+  }
+}
+
+
+
 
 async function sendSessionUpdates() {
   try {
@@ -116,7 +161,4 @@ async function sendSessionUpdates() {
   }
 }
 
-
-
-        
 client.login(DISCORD_TOKEN);

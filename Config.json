@@ -2,5 +2,6 @@
     "DISCORD_TOKEN": "",
     "CHANNEL_ID": "",
     "API_URL": "https://cloudx-staging.azurewebsites.net/api/sessions",
+    "UserStat_API": "https://cloudx-staging.azurewebsites.net/api/stats/onlineUserStats",
     "REFRESH_INTERVAL": 60000
   }
