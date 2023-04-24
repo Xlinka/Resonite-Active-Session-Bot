@@ -52,6 +52,18 @@ async function sendSessionUpdates() {
 
     const channel = await client.channels.fetch(channelId);
 
+    // Fetch previous session messages in the channel
+    const messages = await channel.messages.fetch();
+    const sessionMessages = messages.filter(message => message.author.id === client.user.id && message.embeds.length > 0 && message.embeds[0].footer?.text === 'Session information updated');
+    const sessionMessageIds = sessionMessages.map(message => message.id);
+
+    // Delete previous session messages in the channel
+    if (sessionMessageIds.length > 0) {
+      await channel.bulkDelete(sessionMessageIds);
+    }
+
+    // Send updated session messages
+    const newSessionMessageIds = [];
     for (const [index, session] of activeSessions.entries()) {
       let imageUrl = session.thumbnail;
       if (imageUrl && imageUrl.startsWith('neosdb:///')) {
@@ -91,13 +103,19 @@ async function sendSessionUpdates() {
         .setTimestamp()
         .setFooter({ text: 'Session information updated' });
 
-      await channel.send({ embeds: [embed] });
+      const message = await channel.send({ embeds: [embed] });
+      newSessionMessageIds.push(message.id);
     }
+
+    // Store new session message IDs for future updates
+    sessionMessageIds.push(...newSessionMessageIds);
+
   } catch (error) {
     console.error(`Error while fetching or sending session updates: ${error.message}`);
     console.error(error.stack);
   }
 }
+
 
 
         
