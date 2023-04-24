@@ -1,4 +1,4 @@
-# NeosVR SessionBot
+# NeosVR Active Session Bot
 
 Neos Active Session Bot is a Discord bot that periodically fetches information about active sessions from the Neos API and posts it to a designated channel on a Discord server.
 
