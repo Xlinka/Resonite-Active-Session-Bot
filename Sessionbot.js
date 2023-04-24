@@ -80,6 +80,7 @@ async function sendSessionUpdates() {
           { name: 'Headless Server', value: session.headlessHost.toString(), inline: true },
           { name: 'Mobile Friendly', value: session.mobileFriendly.toString(), inline: true },
           { name: 'Session URLs', value: sessionUrls },
+          { name: 'Join Session', value: `http://cloudx.azurewebsites.net/open/session/${session.sessionId}` },
         )
         .setImage(imageUrl)
         .setTimestamp()
