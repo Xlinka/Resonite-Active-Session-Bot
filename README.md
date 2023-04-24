@@ -15,4 +15,4 @@ Neos Active Session Bot is a Discord bot that periodically fetches information a
 
 ## Credits
 
-This bot was created by Xlinka and is a recreation of the bot used in the Main Neos Discord.
+This bot is a recreation of the bot used in the Main Neos Discord.
