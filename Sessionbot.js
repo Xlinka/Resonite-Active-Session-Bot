@@ -129,6 +129,8 @@ async function sendSessionUpdates() {
         }
       })
       .join('\n');
+      
+      let joinedUsers = session.sessionUsers.join(", ");
 
       const embed = new EmbedBuilder()
         .setTitle(`Session ${index + 1}: ${cleanName}`)
@@ -141,6 +143,7 @@ async function sendSessionUpdates() {
           { name: 'Neos Version', value: session.neosVersion, inline: true },
           { name: 'Headless Server', value: session.headlessHost.toString(), inline: true },
           { name: 'Mobile Friendly', value: session.mobileFriendly.toString(), inline: true },
+          { name: 'Users', value: joinedUsers },
           { name: 'Session URLs', value: sessionUrls },
           { name: 'Join Session', value: `http://cloudx.azurewebsites.net/open/session/${session.sessionId}` },
         )
