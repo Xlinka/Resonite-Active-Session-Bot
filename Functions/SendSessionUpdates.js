@@ -57,7 +57,7 @@ async function sendSessionUpdates(client) {
           { name: 'Active Users', value: session.activeUsers.toString(), inline: true },
           { name: 'Total Joined Users', value: session.totalJoinedUsers.toString(), inline: true },
           { name: 'Uptime', value: uptime, inline: true },
-          { name: 'App Version', value: session.appVersion, inline: true },
+          { name: 'Resonite Version', value: session.appVersion, inline: true },
           { name: 'Headless Host', value: session.headlessHost.toString(), inline: true },
           { name: 'Mobile Friendly', value: session.mobileFriendly.toString(), inline: true }
         )
