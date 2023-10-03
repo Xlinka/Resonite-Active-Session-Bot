@@ -5,14 +5,14 @@ const { EmbedBuilder } = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ping')
-    .setDescription('Neos\'s latency'),
+    .setDescription('Resonite\'s latency'),
   async execute(interaction) {
-    const response = await fetch('https://cloudxstorage.blob.core.windows.net/install/ServerResponse');
+    const response = await fetch('https://cloudxstorage.blob.core.windows.net/install/ServerResponse'); //find the url to replace this
     const data = await response.json();
     
     const pingEmbed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setTitle('Ping to Neos Servers')
+      .setTitle('Ping to Resonite Servers')
       .setDescription(`Latency is ${data.responseTimeMilliseconds.toString()}ms.`)
 
     await interaction.reply({ embeds: [pingEmbed] });
