@@ -1,7 +1,7 @@
 {
     "DISCORD_TOKEN": "",
     "CHANNEL_ID": "",
-    "API_URL": "https://cloudx-staging.azurewebsites.net/api/sessions",
-    "UserStat_API": "https://cloudx-staging.azurewebsites.net/api/stats/onlineUserStats",
+    "API_URL": "https://api.resonite.com/sessions",
+    "UserStat_API": "https://api.resonite.com/stats/onlineUserStats",
     "REFRESH_INTERVAL": 60000
   }
