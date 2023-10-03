@@ -2,6 +2,6 @@
     "DISCORD_TOKEN": "",
     "CHANNEL_ID": "",
     "API_URL": "https://api.resonite.com/sessions",
-    "UserStat_API": "https://api.resonite.com/stats/onlineUserStats",
+    "UserStat_API": "https://api.resonite.com/stats/onlineStats",
     "REFRESH_INTERVAL": 60000
   }
