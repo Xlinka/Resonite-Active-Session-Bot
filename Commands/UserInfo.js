@@ -12,7 +12,7 @@ module.exports = {
       .setRequired(true)),
   async execute(interaction) {
     const username = interaction.options.getString('username');
-    const url = `https://cloudx-staging.azurewebsites.net/api/users/U-${username}`;
+    const url = `https://api.resonite.com/users/U-${username}`;
     const response = await fetch(url);
     const data = await response.json();
 
@@ -33,8 +33,8 @@ module.exports = {
     const breadDay = daysUntilBreadDay === 0 ? 'Today!' : `in ${daysUntilBreadDay} day${daysUntilBreadDay === 1 ? '' : 's'}`;
     
     let imageUrl = data.profile.iconUrl;
-    if (imageUrl && imageUrl.startsWith('neosdb:///')) {
-      imageUrl = imageUrl.replace('neosdb:///', 'https://assets.neos.com/assets/').replace('.webp', '');
+    if (imageUrl && imageUrl.startsWith('resdb:///')) {
+      imageUrl = imageUrl.replace('resdb:///', 'https://assets.resonite.com/').replace('.webp', '');
     }
     
     const userEmbed = new EmbedBuilder()
