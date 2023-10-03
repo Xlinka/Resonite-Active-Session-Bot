@@ -13,6 +13,3 @@ Resonite Active Session Bot is a Discord bot that periodically fetches informati
    - `REFRESH_INTERVAL`: The interval at which to fetch new session information, in milliseconds.
 4. Run the bot with `node sessionbot.js`.
 
-## Credits
-
-This bot is a recreation of the bot used in the Main Neos Discord.
